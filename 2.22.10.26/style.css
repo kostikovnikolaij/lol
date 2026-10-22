@@ -8,6 +8,7 @@
   justify-content: center;
 
   position: relative;
+  /* отвечает относительно чего будет позишн абсолют располагаться */
 
   transition-property: transform;
   transition-duration: 1s;

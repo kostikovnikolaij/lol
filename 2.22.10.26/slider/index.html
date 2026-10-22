@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Слайдер</title>
+    <link rel="stylesheet" href="slider-style.css" />
+  </head>
+  <body>
+    <div class="slider">
+      <!-- Дорожка: сюда кладутся все слайды подряд -->
+      <div class="slider-track" id="track">
+        <div class="slide">1</div>
+        <div class="slide">2</div>
+        <div class="slide">3</div>
+        <div class="slide">4</div>
+      </div>
+      <!-- Кнопки переключения -->
+      <button class="slider-btn prev" id="prevBtn" aria-label="Назад">‹</button>
+      <button class="slider-btn next" id="nextBtn" aria-label="Вперёд">
+        ›
+      </button>
+      <!-- Точки-индикаторы: генерируются в JS -->
+      <div class="slider-dots" id="dots"></div>
+    </div>
+
+    <script src="slider-script.js"></script>
+  </body>
+</html>
