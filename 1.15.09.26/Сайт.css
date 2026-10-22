@@ -1,0 +1,372 @@
+:root {
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --ink: #10243d;
+  --ink-soft: #384e70;
+  --line: #d2d2f2;
+  --font-body:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Шапка сайта */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-mark {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 4px;
+  display: block;
+}
+
+/* Меню */
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+}
+
+.menu a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.menu a:hover,
+.menu a.active {
+  background: #e5e5e5;
+  color: #000;
+  font-weight: 600;
+}
+
+.cabinet-zone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #000;
+  color: #fff;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-soft);
+}
+
+/* Пользовательский блок */
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef0f5;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Главная страница — Карточка товара */
+.product-section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.product-container {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  background: #fff;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.product-image {
+  flex: 1;
+  background: #020202;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Черная рамка не двигается и держит границы */
+}
+
+.product-image img {
+  width: 100%;
+  height: 520px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  /* Плавный переход размера за 0.3 секунды */
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(0.88); /* Начальный размер для М */
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.product-info h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.description {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+
+/* Размерная сетка */
+.size-section {
+  margin-bottom: 30px;
+}
+
+.size-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.size-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.size-btn {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.size-btn:hover {
+  border-color: #000;
+}
+
+.size-btn.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.btn-large {
+  width: 100%;
+  padding: 16px;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+/* Страница "О нас" */
+.about-section {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 0 24px;
+}
+
+.about-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.about-card h1 {
+  font-size: 26px;
+  margin-bottom: 16px;
+}
+
+.about-card p {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.colaba-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 60px;
+}
+
+/* ==========================================
+   Стиль Карусели (исправленная растяжка)
+   ========================================== */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-view {
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 520px;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(0.88);
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Элементы управления каруселью */
+.carousel-controls {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  z-index: 5;
+}
+
+.carousel-arrow {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.carousel-arrow:hover {
+  background: #e5e5e5;
+  transform: scale(1.08);
+}
+
+.carousel-indicator {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Стили для одинарной картинки второго товара */
+.single-product-img {
+  width: 100%;
+  height: 520px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(0.88);
+}

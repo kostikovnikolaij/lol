@@ -1,0 +1,35 @@
+.cont {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  height: 300px;
+  align-items: center;
+  /* flex-direction: column; */
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.item {
+  height: 100px;
+  /* display: inline-block; */
+  /* выставляет все в строку  */
+  min-width: 30%;
+}
+.item:nth-child(1) {
+  background-color: red;
+}
+.item:nth-child(2) {
+  background-color: yellow;
+}
+.item:nth-child(3) {
+  background-color: green;
+}
+.item:nth-child(4) {
+  background-color: red;
+}
+.item:nth-child(5) {
+  background-color: yellow;
+}
+.item:nth-child(6) {
+  background-color: green;
+}

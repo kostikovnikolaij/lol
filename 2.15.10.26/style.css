@@ -1,0 +1,13 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+
+  transition-property: transform;
+  transition-duration: 1s;
+}
+
+.box:hover {
+  transform: scale(2) rotate(90deg);
+  background-color: pink;
+}

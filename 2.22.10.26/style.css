@@ -1,0 +1,35 @@
+.cont {
+  width: 500px;
+  height: 300px;
+  background-color: rgb(255, 153, 153);
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  transition-property: transform;
+  transition-duration: 1s;
+}
+
+.mcont {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(139, 45, 45);
+
+  transition-property: transform;
+  transition-duration: 1s;
+}
+
+.mcont2 {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(139, 45, 45);
+
+  /* transform: translateY(-30px); */
+  position: absolute;
+  /* позволяет вытягивать элемент и перемещать его */
+  top: 109px;
+  left: 15px;
+}

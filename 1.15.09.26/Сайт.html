@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brand Clothes — Главная</title>
+    <link rel="stylesheet" href="Сайт.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="logo">
+          <img src="logoNR.png" class="logo-mark" alt="Логотип" />
+        </div>
+
+        <nav>
+          <ul class="menu">
+            <li><a href="Сайт.html" class="active">Главная</a></li>
+            <li><a href="about.html">О нас</a></li>
+            <li><a href="colaba.html">Коллаборация</a></li>
+          </ul>
+        </nav>
+
+        <div class="cabinet-zone">
+          <button class="btn btn-primary">Войти</button>
+          <div class="user-chip">
+            <div class="user-avatar">N</div>
+            <span class="user-name">Николай</span>
+            <button
+              class="btn btn-ghost"
+              style="padding: 4px 8px; font-size: 12px"
+            >
+              Выйти
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="product-section">
+      <div class="product-container">
+        <div class="product-image">
+          <!-- Картинка, размер которой будет меняться -->
+          <img
+            id="hoodieImage"
+            src="hoodi.jpg"
+            alt="Оверсайз худи NR Edition"
+          />
+        </div>
+
+        <div class="product-info">
+          <div class="product-details">
+            <h1>Фирменное худи "NR Edition"</h1>
+            <p class="price">3 999 ₽</p>
+
+            <p class="description">
+              Плотный хлопок с флисовым начёсом. Свободный крой, глубокий
+              капюшон и базовый серый оттенок.
+            </p>
+
+            <!-- Выбор размера с коэффициентом масштаба data-scale -->
+            <div class="size-section">
+              <span class="size-title">Выберите размер:</span>
+              <div class="size-picker" id="sizePicker">
+                <button class="size-btn" data-scale="0.82">S</button>
+                <button class="size-btn active" data-scale="0.88">M</button>
+                <button class="size-btn" data-scale="0.94">L</button>
+                <button class="size-btn" data-scale="1.0">XL</button>
+                <button class="size-btn" data-scale="1.05">2XL</button>
+                <button class="size-btn" data-scale="1.1">3XL</button>
+                <button class="size-btn" data-scale="1.15">4XL</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-large" id="cartBtn">
+            Добавить в корзину
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Логика переключения размеров
+      const sizeButtons = document.querySelectorAll(".size-btn");
+      const hoodieImage = document.getElementById("hoodieImage");
+
+      sizeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          sizeButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          const scale = button.getAttribute("data-scale");
+          hoodieImage.style.transform = `scale(${scale})`;
+        });
+      });
+
+      // Логика переключения кнопки корзины
+      const cartBtn = document.getElementById("cartBtn");
+
+      cartBtn.addEventListener("click", () => {
+        cartBtn.classList.toggle("added");
+
+        if (cartBtn.classList.contains("added")) {
+          cartBtn.textContent = "В корзине";
+        } else {
+          cartBtn.textContent = "Добавить в корзину";
+        }
+      });
+    </script>
+  </body>
+</html>

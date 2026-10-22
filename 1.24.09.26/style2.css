@@ -1,0 +1,23 @@
+.header {
+  background-color: rgb(173, 225, 250);
+  padding: 0px;
+}
+a {
+  color: white;
+  background-color: green;
+  border: 1px;
+  padding: 10px 10px 10px 10px;
+  display: inline-block;
+}
+a:hover {
+  background-color: aqua;
+}
+
+.cont {
+  width: 700px;
+  border: 1px solid red;
+  margin: 0px auto;
+  h1 {
+    text-align: center;
+  }
+}

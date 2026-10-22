@@ -1,0 +1,11 @@
+/* .box {
+  max-width: 3000px;
+  border: 1px solid black;
+  margin: 0 auto;
+} */
+
+.box {
+  min-width: 300px;
+  border: 1px solid black;
+  margin: 0 auto;
+}

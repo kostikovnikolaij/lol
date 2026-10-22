@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brand Clothes — Коллаборация</title>
+    <link rel="stylesheet" href="Сайт.css" />
+  </head>
+  <body>
+    <!-- Шапка сайта -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="logo">
+          <img src="logoNR.png" class="logo-mark" alt="Логотип" />
+        </div>
+
+        <nav>
+          <ul class="menu">
+            <li><a href="Сайт.html">Главная</a></li>
+            <li><a href="about.html">О нас</a></li>
+            <li><a href="colaba.html" class="active">Коллаборация</a></li>
+          </ul>
+        </nav>
+
+        <div class="cabinet-zone">
+          <button class="btn btn-primary">Войти</button>
+          <div class="user-chip">
+            <div class="user-avatar">N</div>
+            <span class="user-name">Николай</span>
+            <button
+              class="btn btn-ghost"
+              style="padding: 4px 8px; font-size: 12px"
+            >
+              Выйти
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="colaba-container">
+      <!-- ТОВАР 1: С каруселью (col1.png и col2.png) -->
+      <section class="product-section">
+        <div class="product-container">
+          <div class="product-image">
+            <div class="carousel">
+              <div class="carousel-view">
+                <img
+                  id="item1-img1"
+                  class="carousel-slide active"
+                  src="co1.png"
+                  alt="NR Collab Item — вид 1"
+                />
+                <img
+                  id="item1-img2"
+                  class="carousel-slide"
+                  src="co2.png"
+                  alt="NR Collab Item — вид 2"
+                />
+              </div>
+              <div class="carousel-controls">
+                <button class="carousel-arrow" id="prevBtn">←</button>
+                <span class="carousel-indicator"
+                  ><span id="slideNum">1</span> / 2</span
+                >
+                <button class="carousel-arrow" id="nextBtn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-info">
+            <div class="product-details">
+              <h1>Худи "NR Collab"</h1>
+              <p class="price">5 999 ₽</p>
+
+              <p class="description">
+                Эксклюзивная вещь из лимитированной коллекции. Листайте
+                стрелками, чтобы рассмотреть модель с разных ракурсов.
+              </p>
+
+              <div class="size-section">
+                <span class="size-title">Выберите размер:</span>
+                <div class="size-picker" id="sizePicker1">
+                  <button class="size-btn" data-scale="0.82">S</button>
+                  <button class="size-btn active" data-scale="0.88">M</button>
+                  <button class="size-btn" data-scale="0.94">L</button>
+                  <button class="size-btn" data-scale="1.0">XL</button>
+                  <button class="size-btn" data-scale="1.05">2XL</button>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-large cart-btn">
+              Добавить в корзину
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ТОВАР 2: С одной фоточкой (расположен ниже, доступен по скроллу) -->
+      <section class="product-section">
+        <div class="product-container">
+          <div class="product-image">
+            <img
+              class="single-product-img"
+              src="hoo1.png"
+              alt="Оверсайз худи NR Spider"
+            />
+          </div>
+
+          <div class="product-info">
+            <div class="product-details">
+              <h1>Худи "NR Spider"</h1>
+              <p class="price">3 999 ₽</p>
+
+              <p class="description">
+                Лимитированная вещь связанная с выходом нового фильма по
+                Человеку Пауку
+              </p>
+
+              <div class="size-section">
+                <span class="size-title">Выберите размер:</span>
+                <div class="size-picker" id="sizePicker2">
+                  <button class="size-btn" data-scale="0.82">S</button>
+                  <button class="size-btn active" data-scale="0.88">M</button>
+                  <button class="size-btn" data-scale="0.94">L</button>
+                  <button class="size-btn" data-scale="1.0">XL</button>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-large cart-btn">
+              Добавить в корзину
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // 1. ЛОГИКА МИНИ-КАРУСЕЛИ (col1.png <-> col2.png)
+      const slides = [
+        document.getElementById("item1-img1"),
+        document.getElementById("item1-img2"),
+      ];
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const slideNum = document.getElementById("slideNum");
+      let currentSlideIndex = 0;
+
+      function updateCarousel(index) {
+        slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.add("active");
+          } else {
+            slide.classList.remove("active");
+          }
+        });
+        slideNum.textContent = index + 1;
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        updateCarousel(currentSlideIndex);
+      });
+
+      prevBtn.addEventListener("click", () => {
+        currentSlideIndex =
+          (currentSlideIndex - 1 + slides.length) % slides.length;
+        updateCarousel(currentSlideIndex);
+      });
+
+      // 2. ЛОГИКА ВЫБОРА РАЗМЕРОВ ДЛЯ ВСЕХ ТОВАРОВ
+      const sizePickers = document.querySelectorAll(".size-picker");
+
+      sizePickers.forEach((picker) => {
+        const buttons = picker.querySelectorAll(".size-btn");
+        const container = picker.closest(".product-container");
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            buttons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            const scale = button.getAttribute("data-scale");
+            const images = container.querySelectorAll(".product-image img");
+            images.forEach((img) => {
+              img.style.transform = `scale(${scale})`;
+            });
+          });
+        });
+      });
+
+      // 3. ЛОГИКА КНОПОК "ДОБАВИТЬ В КОРЗИНУ"
+      const cartButtons = document.querySelectorAll(".cart-btn");
+
+      cartButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("added");
+
+          if (btn.classList.contains("added")) {
+            btn.textContent = "В корзине";
+            btn.style.background = "#384e70";
+          } else {
+            btn.textContent = "Добавить в корзину";
+            btn.style.background = "#000";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

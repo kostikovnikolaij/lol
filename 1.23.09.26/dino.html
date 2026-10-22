@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dino Runner — Ultimate Chaos Edition</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f7f7f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      user-select: none;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ночной режим (N) */
+    body.night-mode {
+      background-color: #121212;
+      color: #fff;
+    }
+
+    body.night-mode .game-container {
+      border-bottom-color: #bb86fc;
+      box-shadow: 0 4px 20px rgba(187, 134, 252, 0.2);
+    }
+
+    body.night-mode .score-board {
+      color: #bb86fc;
+    }
+
+    /* Дискотека (A) */
+    body.disco-mode {
+      animation: discoBg 0.4s infinite alternate linear;
+    }
+
+    @keyframes discoBg {
+      0% { background-color: #ff0055; }
+      25% { background-color: #00ccff; }
+      50% { background-color: #00ff66; }
+      75% { background-color: #ffcc00; }
+      100% { background-color: #cc00ff; }
+    }
+
+    .game-container {
+      position: relative;
+      width: 600px;
+      height: 200px;
+      background: #fff;
+      border-bottom: 2px solid #535353;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.05s ease, background 0.4s ease;
+    }
+
+    /* Стили фонов игрового окна (1, 2, 3, 4, 5, 8, 9, 0) */
+    .game-container.bg-1 { background: linear-gradient(180deg, #ff7e5f, #feb47b); } /* Пляжный закат */
+    .game-container.bg-2 { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); } /* Космос */
+    .game-container.bg-3 { background: linear-gradient(180deg, #134e5e, #71b280); } /* Лес */
+    .game-container.bg-4 { background: linear-gradient(180deg, #2b1055, #7597de); } /* Ретровейв */
+    .game-container.bg-5 { background: linear-gradient(180deg, #83a4d4, #b6fbff); } /* Ледник */
+    .game-container.bg-8 { background: linear-gradient(180deg, #410606, #871111, #ff4500); } /* Вулкан */
+    .game-container.bg-9 { background: linear-gradient(135deg, #ffe066, #f5af19, #e65c00); } /* Золото */
+
+    /* Землетрясение (Z) */
+    .game-container.earthquake {
+      animation: quake 0.08s infinite alternate ease-in-out;
+    }
+
+    @keyframes quake {
+      0% { transform: translate(-5px, 3px) rotate(-1deg); }
+      100% { transform: translate(5px, -3px) rotate(1deg); }
+    }
+
+    /* Блок динозаврика */
+    .dino-entity {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      bottom: 0px;
+      left: 40px;
+      transition: bottom 0.2s ease-out, transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+      transform-origin: center center;
+    }
+
+    .dino-entity img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Шляпа цилиндр (C) */
+    .dino-hat {
+      position: absolute;
+      top: -16px;
+      left: 12px;
+      width: 24px;
+      height: 18px;
+      background: #000;
+      border-bottom: 3px solid #ff0055;
+      border-radius: 3px 3px 0 0;
+      display: none;
+    }
+
+    .dino-hat::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: -6px;
+      width: 36px;
+      height: 3px;
+      background: #000;
+      border-radius: 2px;
+    }
+
+    .dino-entity.has-hat .dino-hat {
+      display: block;
+    }
+
+    /* Огненный след скоростной (V) */
+    .warp-trail {
+      position: absolute;
+      bottom: 5px;
+      left: -30px;
+      width: 35px;
+      height: 15px;
+      background: linear-gradient(90deg, transparent, #ff5500, #ffcc00);
+      border-radius: 50%;
+      filter: blur(2px);
+      display: none;
+    }
+
+    .dino-entity.warp-speed .warp-trail {
+      display: block;
+      animation: flamePulse 0.1s infinite alternate;
+    }
+
+    @keyframes flamePulse {
+      0% { opacity: 0.6; transform: scaleX(0.8); }
+      100% { opacity: 1; transform: scaleX(1.3); }
+    }
+
+    /* Неоновый стиль (X) */
+    .dino-entity.neon-mode {
+      filter: drop-shadow(0 0 8px #00ffff) invert(1) hue-rotate(180deg);
+    }
+
+    /* Большая голова (B) */
+    .dino-entity.big-head img {
+      transform: scale(1.6) translateY(-10%);
+      transform-origin: top center;
+    }
+
+    /* Лазеры из глаз (S) */
+    .laser-beam {
+      position: absolute;
+      top: 12px;
+      left: 35px;
+      width: 550px;
+      height: 4px;
+      background: #ff0000;
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+      display: none;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .dino-entity.laser-active .laser-beam {
+      display: block;
+    }
+
+    /* Кувырок (F) */
+    .flip-animation {
+      animation: flipRoll 0.5s ease-in-out;
+    }
+
+    @keyframes flipRoll {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Лунный прыжок (L) */
+    .moon-jump {
+      animation: moonJumpAnim 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+
+    @keyframes moonJumpAnim {
+      0% { bottom: 0; }
+      40% { bottom: 140px; }
+      100% { bottom: 0; }
+    }
+
+    /* Неуязвимость (U) */
+    .dino-entity.invincible {
+      filter: drop-shadow(0 0 6px #2ec4b6);
+    }
+
+    /* Препятствия */
+    #cactus {
+      width: 30px;
+      height: 45px;
+      position: absolute;
+      bottom: 0;
+      right: -40px;
+    }
+
+    #cactus img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .bird-entity {
+      width: 45px;
+      height: 35px;
+      position: absolute;
+      top: 25px;
+      right: -50px;
+      display: none;
+    }
+
+    .bird-entity img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Прыжок обычный */
+    .jump {
+      animation: jumpAnimation 0.5s cubic-bezier(0.1, 0.4, 0.4, 1);
+    }
+
+    @keyframes jumpAnimation {
+      0% { bottom: 0; }
+      50% { bottom: 95px; }
+      100% { bottom: 0; }
+    }
+
+    /* Движение препятствий */
+    .start-game #cactus {
+      animation: obstacleMove var(--game-speed, 1.4s) infinite linear;
+    }
+
+    .start-game .bird-entity.active {
+      display: block;
+      animation: obstacleMove var(--game-speed, 1.6s) infinite linear;
+    }
+
+    .paused #cactus,
+    .paused .bird-entity {
+      animation-play-state: paused !important;
+    }
+
+    @keyframes obstacleMove {
+      0% { right: -50px; }
+      100% { right: 650px; }
+    }
+
+    .score-board {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #535353;
+    }
+
+    /* Денежный дождь (M) */
+    .money-particle {
+      position: absolute;
+      top: -30px;
+      font-size: 20px;
+      z-index: 80;
+      pointer-events: none;
+      animation: moneyFall 2s linear forwards;
+    }
+
+    @keyframes moneyFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(240px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Пауза */
+    .pause-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      display: none;
+      z-index: 20;
+    }
+
+    .paused .pause-text {
+      display: block;
+    }
+
+    /* Мотивационная надпись */
+    .cheer-text {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      font-size: 32px;
+      font-weight: 900;
+      color: #ff0055;
+      text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .cheer-text.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    /* Метеорит */
+    .meteor {
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ffcc00 10%, #ff3300 50%, #990000 90%);
+      border-radius: 50%;
+      box-shadow: 0 0 30px #ff3300, 0 0 60px #ffaa00;
+      z-index: 100;
+      display: none;
+    }
+
+    .meteor.fall {
+      display: block;
+      animation: meteorCrash 0.7s forwards ease-in;
+    }
+
+    @keyframes meteorCrash {
+      0% { top: -120px; right: -120px; }
+      100% { top: 80px; left: 30px; }
+    }
+
+    .explosion-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle, #ffffff 0%, #ff0000 40%, #000000 100%);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .explosion-overlay.explode {
+      animation: flashExplode 0.5s forwards;
+    }
+
+    @keyframes flashExplode {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      100% { opacity: 0.9; }
+    }
+
+    /* Пасхалка Six-Seven */
+    .six-seven-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 999; display: none;
+    }
+
+    .six-seven-num {
+      position: absolute;
+      font-size: 72px; font-weight: 900; color: #ff3366;
+      animation: bounceNum 0.6s infinite alternate ease-in-out;
+    }
+
+    @keyframes bounceNum {
+      0% { transform: translateY(0) scale(1) rotate(-10deg); }
+      100% { transform: translateY(-40px) scale(1.3) rotate(10deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-container" id="game">
+    <div class="pause-text">ПАУЗА</div>
+    <div class="cheer-text" id="cheerText">МОЛОДЕЦ ЗАЙКА!</div>
+    <div class="meteor" id="meteor"></div>
+    <div class="explosion-overlay" id="explosion"></div>
+
+    <!-- Основной динозавр -->
+    <div class="dino-entity" id="dino">
+      <div class="dino-hat"></div>
+      <div class="warp-trail"></div>
+      <img src="dino.png" alt="Dino">
+      <div class="laser-beam"></div>
+    </div>
+
+    <!-- Контейнер для клонов -->
+    <div id="clonesContainer"></div>
+
+    <!-- Кактус -->
+    <div id="cactus">
+      <img src="cactus.png" alt="Cactus">
+    </div>
+
+    <!-- Птицы -->
+    <div class="bird-entity" id="bird">
+      <img src="bird.png" alt="Bird">
+    </div>
+    <div class="bird-entity" id="birdK1" style="top: 10px;"><img src="bird.png" alt="Bird"></div>
+    <div class="bird-entity" id="birdK2" style="top: 60px;"><img src="bird.png" alt="Bird"></div>
+    <div class="bird-entity" id="birdK3" style="top: 100px;"><img src="bird.png" alt="Bird"></div>
+  </div>
+
+  <div class="score-board">Счёт: <span id="score">0</span></div>
+
+  <!-- Пасхалка Six Seven -->
+  <div class="six-seven-overlay" id="sixSevenBox">
+    <div class="six-seven-num" style="top: 30%; left: 35%;">6</div>
+    <div class="six-seven-num" style="top: 25%; left: 55%; color: #33a1ff; animation-delay: 0.2s;">7</div>
+    <div class="six-seven-num" style="top: 60%; left: 25%; color: #ffd166; animation-delay: 0.1s;">6</div>
+    <div class="six-seven-num" style="top: 55%; left: 70%; color: #06d6a0; animation-delay: 0.3s;">7</div>
+  </div>
+
+  <script>
+    const dino = document.getElementById('dino');
+    const cactus = document.getElementById('cactus');
+    const bird = document.getElementById('bird');
+    const game = document.getElementById('game');
+    const scoreElement = document.getElementById('score');
+    const sixSevenBox = document.getElementById('sixSevenBox');
+    const clonesContainer = document.getElementById('clonesContainer');
+    const cheerText = document.getElementById('cheerText');
+    const meteor = document.getElementById('meteor');
+    const explosion = document.getElementById('explosion');
+
+    const cheerPhrases = [
+      "молодец зайка!",
+      "так держать!",
+      "умница!",
+      "давай давай!!",
+      "ты сможешь!"
+    ];
+
+    let score = 0;
+    let cactusCount = 0;
+    let isGameOver = false;
+    let isPaused = false;
+    let scoreInterval = null;
+    let isMeteorTriggered = false;
+
+    let speedDuration = 1.4;
+
+    // Состояния динозавра
+    let isFlying = false;
+    let isFlipped = false;
+    let isReversed = false;
+    let isWide = false;
+    let scaleFactor = 1;
+    let isInvincible = false;
+
+    let lastKey = '';
+
+    function showCheer() {
+      const randomPhrase = cheerPhrases[Math.floor(Math.random() * cheerPhrases.length)];
+      cheerText.textContent = randomPhrase;
+      cheerText.classList.add('show');
+      setTimeout(() => cheerText.classList.remove('show'), 1500);
+    }
+
+    function triggerMeteorApocalypse() {
+      isMeteorTriggered = true;
+      clearInterval(scoreInterval);
+
+      meteor.classList.add('fall');
+
+      setTimeout(() => {
+        explosion.classList.add('explode');
+        setTimeout(() => {
+          alert('💥 МЕТЕОРИТ ИСТРЕБИЛ ВСЁ И ВСЯ! ВАШ СЧЁТ: 500');
+          resetGame();
+        }, 300);
+      }, 700);
+    }
+
+    function startGame() {
+      if (!game.classList.contains('start-game') && !isGameOver) {
+        game.classList.add('start-game');
+        scoreInterval = setInterval(() => {
+          if (!isPaused && !isMeteorTriggered) {
+            score++;
+            scoreElement.textContent = score;
+
+            if (score > 0 && score % 50 === 0) showCheer();
+            if (score >= 500 && !isMeteorTriggered) triggerMeteorApocalypse();
+          }
+        }, 100);
+      }
+    }
+
+    function updateDinoTransform(target = dino) {
+      const rotate = isFlipped ? 180 : 0;
+      const flipX = isReversed ? -1 : 1;
+      const scaleX = (isWide ? 2.5 : 1) * scaleFactor * flipX;
+      const scaleY = scaleFactor;
+
+      target.style.transform = `scale(${scaleX}, ${scaleY}) rotate(${rotate}deg)`;
+    }
+
+    function jump() {
+      if (isPaused || isMeteorTriggered) return;
+      startGame();
+      if (!dino.classList.contains('jump') && !dino.classList.contains('moon-jump') && !isFlying && !isGameOver) {
+        dino.classList.add('jump');
+        document.querySelectorAll('.clone-dino').forEach(clone => clone.classList.add('jump'));
+
+        setTimeout(() => {
+          dino.classList.remove('jump');
+          document.querySelectorAll('.clone-dino').forEach(clone => clone.classList.remove('jump'));
+        }, 500);
+      }
+    }
+
+    function spawnMoney() {
+      const icons = ['💵', '💰', '🪙', '💶'];
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const money = document.createElement('div');
+          money.className = 'money-particle';
+          money.textContent = icons[Math.floor(Math.random() * icons.length)];
+          money.style.left = Math.random() * 560 + 'px';
+          game.appendChild(money);
+          setTimeout(() => money.remove(), 2000);
+        }, i * 150);
+      }
+    }
+
+    function setGameBackground(num) {
+      // Снимаем все предыдущие фоны
+      game.classList.remove('bg-1', 'bg-2', 'bg-3', 'bg-4', 'bg-5', 'bg-8', 'bg-9');
+      if (num !== '0') {
+        game.classList.add(`bg-${num}`);
+      }
+    }
+
+    cactus.addEventListener('animationiteration', () => {
+      cactusCount++;
+      if (cactusCount % 5 === 0) {
+        bird.classList.add('active');
+      } else {
+        bird.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (isMeteorTriggered) return;
+      const key = e.key.toLowerCase();
+
+      // Смена фонов на цифры 1, 2, 3, 4, 5, 8, 9, 0
+      if (['1', '2', '3', '4', '5', '8', '9', '0'].includes(key)) {
+        // Чтобы не сбивать последовательность 6->7 для пасхалки
+        setGameBackground(key);
+      }
+
+      // Прыжок
+      if (e.code === 'Space' || e.code === 'ArrowUp') {
+        e.preventDefault();
+        jump();
+      }
+
+      // Q — Полет
+      if (key === 'q' || key === 'й') {
+        startGame();
+        isFlying = true;
+        dino.classList.remove('jump', 'moon-jump');
+        dino.style.bottom = '110px';
+      }
+
+      // W — Переворот
+      if (key === 'w' || key === 'ц') {
+        isFlipped = !isFlipped;
+        updateDinoTransform();
+      }
+
+      // E — Увеличение
+      if (key === 'e' || key === 'у') {
+        scaleFactor = Math.min(scaleFactor + 0.3, 2.2);
+        updateDinoTransform();
+      }
+
+      // R — Уменьшение
+      if (key === 'r' || key === 'к') {
+        scaleFactor = Math.max(scaleFactor - 0.3, 0.5);
+        updateDinoTransform();
+      }
+
+      // T — Невидимость
+      if (key === 't' || key === 'е') {
+        dino.style.opacity = '0.15';
+      }
+
+      // Y — Видимость
+      if (key === 'y' || key === 'н') {
+        dino.style.opacity = '1';
+      }
+
+      // U — Неуязвимость
+      if (key === 'u' || key === 'г') {
+        isInvincible = true;
+        dino.classList.add('invincible');
+      }
+
+      // I — Уязвимость обратно
+      if (key === 'i' || key === 'ш') {
+        isInvincible = false;
+        dino.classList.remove('invincible');
+      }
+
+      // O — Клон
+      if (key === 'o' || key === 'щ') {
+        const clone = dino.cloneNode(true);
+        clone.id = '';
+        clone.classList.add('clone-dino');
+        const count = clonesContainer.children.length;
+        clone.style.left = `${90 + count * 45}px`;
+        clonesContainer.appendChild(clone);
+      }
+
+      // P — Широкий
+      if (key === 'p' || key === 'з') {
+        isWide = !isWide;
+        updateDinoTransform();
+      }
+
+      // A — Дискотека
+      if (key === 'a' || key === 'ф') {
+        document.body.classList.toggle('disco-mode');
+      }
+
+      // S — Лазеры
+      if (key === 's' || key === 'ы') {
+        dino.classList.toggle('laser-active');
+      }
+
+      // D — Разворот
+      if (key === 'd' || key === 'в') {
+        isReversed = !isReversed;
+        updateDinoTransform();
+      }
+
+      // F — Кувырок
+      if (key === 'f' || key === 'а') {
+        dino.classList.add('flip-animation');
+        setTimeout(() => dino.classList.remove('flip-animation'), 500);
+      }
+
+      // G — Пауза
+      if (key === 'g' || key === 'п') {
+        isPaused = !isPaused;
+        game.classList.toggle('paused', isPaused);
+      }
+
+      // H — Быстрее
+      if (key === 'h' || key === 'р') {
+        speedDuration = Math.max(0.4, speedDuration - 0.4);
+        game.style.setProperty('--game-speed', `${speedDuration}s`);
+      }
+
+      // J — Медленнее
+      if (key === 'j' || key === 'о') {
+        speedDuration += 0.5;
+        game.style.setProperty('--game-speed', `${speedDuration}s`);
+      }
+
+      // K — 3 птицы
+      if (key === 'k' || key === 'л') {
+        startGame();
+        ['birdK1', 'birdK2', 'birdK3'].forEach(id => {
+          document.getElementById(id).classList.add('active');
+        });
+      }
+
+      // L — Лунный прыжок
+      if (key === 'l' || key === 'д') {
+        startGame();
+        if (!dino.classList.contains('moon-jump')) {
+          dino.classList.add('moon-jump');
+          setTimeout(() => dino.classList.remove('moon-jump'), 2500);
+        }
+      }
+
+      // Z — Землетрясение
+      if (key === 'z' || key === 'я') {
+        game.classList.toggle('earthquake');
+      }
+
+      // X — Неоновый режим
+      if (key === 'x' || key === 'ч') {
+        dino.classList.toggle('neon-mode');
+      }
+
+      // C — Цилиндр (шляпа)
+      if (key === 'c' || key === 'с') {
+        dino.classList.toggle('has-hat');
+      }
+
+      // V — Сверхскорость (Варп)
+      if (key === 'v' || key === 'м') {
+        dino.classList.toggle('warp-speed');
+      }
+
+      // B — Большая голова
+      if (key === 'b' || key === 'и') {
+        dino.classList.toggle('big-head');
+      }
+
+      // N — Ночной режим
+      if (key === 'n' || key === 'т') {
+        document.body.classList.toggle('night-mode');
+      }
+
+      // M — Денежный дождь
+      if (key === 'm' || key === 'ь') {
+        spawnMoney();
+      }
+
+      // Пасхалка 6 -> 7
+      if (key === '6') {
+        lastKey = '6';
+      } else if (key === '7' && lastKey === '6') {
+        triggerSixSeven();
+        lastKey = '';
+      } else {
+        lastKey = '';
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      const key = e.key.toLowerCase();
+      if (key === 'q' || key === 'й') {
+        isFlying = false;
+        dino.style.bottom = '0px';
+      }
+    });
+
+    document.addEventListener('pointerdown', jump);
+
+    function triggerSixSeven() {
+      sixSevenBox.style.display = 'block';
+      setTimeout(() => sixSevenBox.style.display = 'none', 3000);
+    }
+
+    function resetGame() {
+      clearInterval(scoreInterval);
+      game.classList.remove('start-game', 'paused', 'earthquake', 'bg-1', 'bg-2', 'bg-3', 'bg-4', 'bg-5', 'bg-8', 'bg-9');
+      document.body.classList.remove('disco-mode', 'night-mode');
+      document.querySelectorAll('.bird-entity').forEach(b => b.classList.remove('active'));
+      clonesContainer.innerHTML = '';
+      
+      meteor.classList.remove('fall');
+      explosion.classList.remove('explode');
+      isMeteorTriggered = false;
+
+      score = 0;
+      cactusCount = 0;
+      scoreElement.textContent = score;
+
+      isFlying = false;
+      isPaused = false;
+      dino.style.bottom = '0px';
+    }
+
+    // Проверка столкновений
+    const checkCollision = setInterval(() => {
+      if (isInvincible || isPaused || isMeteorTriggered) return;
+
+      const dinoBottom = parseInt(window.getComputedStyle(dino).getPropertyValue('bottom'));
+      const cactusRight = parseInt(window.getComputedStyle(cactus).getPropertyValue('right'));
+
+      const activeBirds = document.querySelectorAll('.bird-entity.active');
+      const currentHeight = 35 * scaleFactor;
+
+      const hitCactus = (cactusRight > 500 && cactusRight < 550 && dinoBottom < currentHeight);
+
+      let hitBird = false;
+      activeBirds.forEach(b => {
+        const birdRight = parseInt(window.getComputedStyle(b).getPropertyValue('right'));
+        const birdTop = parseInt(window.getComputedStyle(b).getPropertyValue('top'));
+        const birdBottom = 200 - birdTop - 35;
+
+        if (birdRight > 500 && birdRight < 550 && Math.abs(dinoBottom - birdBottom) < 35) {
+          hitBird = true;
+        }
+      });
+
+      if (hitCactus || hitBird) {
+        alert(`Game Over! Ваш счёт: ${score}`);
+        resetGame();
+      }
+    }, 10);
+  </script>
+
+</body>
+</html>

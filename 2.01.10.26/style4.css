@@ -1,0 +1,141 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+* {
+  margin: 0;
+  padding: 0; 
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* Общие стили для секций */
+section {
+  margin-bottom: 80px;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+/* ==================== 1. УСЛУГИ ==================== */
+.services-content {
+  display: flex; /* СТАВИМ ТЕКСТ И КАРТИНКУ В ОДИН РЯД */
+  gap: 40px; /* Расстояние между колонками */
+}
+
+.services-text {
+  flex: 1; /* Левая колонка занимает 50% пространства */
+}
+
+.service-item {
+  margin-bottom: 25px;
+}
+
+.service-item h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.service-item p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.services-image {
+  flex: 1; /* Правая колонка занимает 50% пространства */
+}
+
+.services-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ==================== 2. ТРЕНЕРЫ ==================== */
+.coaches-grid {
+  display: flex; /* Выстраиваем карточки в ряд */
+  gap: 15px; /* Промежуток между тренерами */
+}
+
+.coach-card {
+  flex: 1; /* Все карточки одинаковой ширины */
+  text-align: center;
+}
+
+.coach-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover; /* Картинка красивo подгоняется по размеру */
+  margin-bottom: 10px;
+}
+
+.coach-card h4 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.coach-card p {
+  font-size: 11px;
+  color: #777;
+}
+
+/* ==================== 3. КАРТОЧКИ С КНОПКАМИ ==================== */
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap; /* Если карточки не влезают в 1 ряд, переношутся на следующий */
+  gap: 20px;
+}
+
+.card {
+  width: calc(33.333% - 14px); /* Ровно 3 карточки в одном ряду */
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-body .date {
+  font-size: 11px;
+  color: #aaa;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card-body p {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.card-body button {
+  background-color: #8b71d2; /* Фиолетовая кнопка */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.card-body button:hover {
+  background-color: #765bc2;
+}

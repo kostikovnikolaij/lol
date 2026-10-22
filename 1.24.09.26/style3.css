@@ -1,0 +1,39 @@
+.wer {
+  display: flex;
+  gap: 40px;
+  margin: 20px;
+}
+.one,
+.two {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  background-image: url(Unknown.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  background-size: auto 100%;
+}
+
+.one {
+  background-position: left center;
+}
+
+.two {
+  background-position: right center;
+}
+.cont {
+  width: 1000px;
+  height: 500px;
+  border: 1px;
+  background-image: url(Unknown.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 100px 50px 50px 50px;
+}
+.text {
+  color: blue;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 23px;
+  padding: 50px 0px 0px 20px;
+}
