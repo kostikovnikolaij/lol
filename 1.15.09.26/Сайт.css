@@ -370,3 +370,109 @@ a {
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   transform: scale(0.88);
 }
+
+/* КНОПКА ВНИЗУ ДЛЯ СВЯЗИ */
+/* Контейнер для центровки кнопки внизу */
+.center-btn-container {
+  display: flex;
+  justify-content: center;
+  margin: -50px 0 60px 0;
+}
+
+/* Красивая кнопка вызова модального окна */
+.open-btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.open-btn:hover {
+  background-color: #384e70;
+  transform: translateY(-2px);
+}
+
+/* Стили для самого модального окна (чтобы оно выглядело аккуратно) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  font-size: 22px;
+  color: var(--ink);
+  text-align: center;
+}
+
+.modal p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.modal input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: var(--bg);
+}
+
+.modal input:focus {
+  border-color: var(--ink);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.modal-close:hover {
+  color: #000;
+}

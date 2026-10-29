@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brand Clothes — Главная страница</title>
+    <link rel="stylesheet" href="Сайт.css" />
+  </head>
+  <body>
+    <!-- Шапка сайта (содержит логотип и ровно 5 ссылок по ТЗ) -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="logo">
+          <img src="logoNR.png" class="logo-mark" alt="Логотип компании" />
+        </div>
+
+        <nav>
+          <ul class="menu">
+            <li><a href="index.html" class="active">Главная</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <div class="cabinet-zone">
+          <button class="btn btn-primary">Войти</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+      <!-- 1. Блок Hero -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1>Brand Clothes Studio</h1>
+          <p>
+            Создаем эксклюзивную одежду и фирменный стиль для вашего бренда с
+            уникальным дизайном.
+          </p>
+          <a href="#subscribe" class="btn btn-primary hero-btn"
+            >Заказать проект</a
+          >
+        </div>
+      </section>
+
+      <!-- 2. Блок «Наши преимущества» (4 карточки в ряд) -->
+      <section class="content-section">
+        <h2>Наши преимущества</h2>
+        <div class="grid-4">
+          <div class="feature-card">
+            <div class="card-icon">✨</div>
+            <h3>Премиум ткани</h3>
+            <p>Используем только качественные и долговечные материалы.</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-icon">📐</div>
+            <h3>Идеальный крой</h3>
+            <p>Современный оверсайз и классические лекала для комфорта.</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-icon">⚡</div>
+            <h3>Быстрый пошив</h3>
+            <p>Оперативное выполнение заказов любой сложности в срок.</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-icon">🤝</div>
+            <h3>Поддержка</h3>
+            <p>Помощь на всех этапах от эскиза до готового изделия.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Блок «Популярные услуги» (3 карточки) -->
+      <section class="content-section">
+        <h2>Популярные услуги</h2>
+        <div class="grid-3">
+          <div class="service-card">
+            <h3>Разработка мерча</h3>
+            <p>
+              Создание уникальных коллекций одежды для вашего бренда или
+              мероприятия.
+            </p>
+            <a href="services.html" class="service-link">Подробнее &rarr;</a>
+          </div>
+          <div class="service-card">
+            <h3>Пошив худи и свитшотов</h3>
+            <p>
+              Плотный хлопок с начёсом, качественные принты и вышивка на выбор.
+            </p>
+            <a href="services.html" class="service-link">Подробнее &rarr;</a>
+          </div>
+          <div class="service-card">
+            <h3>Индивидуальный дизайн</h3>
+            <p>Проектирование уникальных лекал и кастомных элементов одежды.</p>
+            <a href="services.html" class="service-link">Подробнее &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Блок «Студия в цифрах» (4 показателя) -->
+      <section class="content-section stats-bg">
+        <h2>Студия в цифрах</h2>
+        <div class="grid-4 stats-grid">
+          <div class="stat-item">
+            <span class="stat-num">120</span>
+            <span class="stat-text">Проектов</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">8 лет</span>
+            <span class="stat-text">На рынке</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">15</span>
+            <span class="stat-text">Специалистов</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">98%</span>
+            <span class="stat-text">Довольных клиентов</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Форма подписки на новости (поле и кнопка в одну строку) -->
+      <section class="content-section" id="subscribe">
+        <div class="subscribe-card">
+          <h2>Подпишитесь на наши новости</h2>
+          <p>Узнавайте первыми о скидках, новых коллекциях и коллаборациях.</p>
+          <form class="subscribe-form">
+            <label for="emailInput" class="visually-hidden"
+              >Электронная почта</label
+            >
+            <input
+              type="email"
+              id="emailInput"
+              placeholder="Введите ваш email"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Подписаться</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Общий подвал -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <p>&copy; 2026 Brand Clothes. Все права защищены.</p>
+        <p>
+          Email:
+          <a href="mailto:support@brandclothes.ru">support@brandclothes.ru</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,297 @@
+/* ==========================================
+   СТИЛИ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ (Контрольная работа)
+   ========================================== */
+
+/* Общий контейнер контента (ограничение ширины и центрирование по ТЗ) */
+.content-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 50px 24px;
+}
+
+.content-section h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--ink);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* 1. Блок Hero (высота не менее 350px, градиент, текст по центру) */
+.hero-section {
+  background: linear-gradient(135deg, #10243d 0%, #384e70 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 80px 24px;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.hero-content p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 28px;
+}
+
+.hero-btn {
+  background: #ffffff;
+  color: #000000;
+  padding: 14px 28px;
+  font-size: 15px;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+  display: inline-block;
+}
+
+.hero-btn:hover {
+  background: #e5e5e5;
+  transform: translateY(-2px);
+}
+
+/* 2. Сетка для преимуществ (4 в ряд) и карточки с hover, border-radius, box-shadow */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  text-align: center;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.feature-card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* 3. Сетка для услуг (3 в ряд) */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: var(--surface);
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.service-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+
+.service-link {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+
+.service-link:hover {
+  color: var(--ink-soft);
+}
+
+/* 4. Блок «Студия в цифрах» */
+.stats-bg {
+  background: #eeeff4;
+  max-width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.stats-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--line);
+}
+
+.stat-num {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.stat-text {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* 5. Форма подписки (поле и кнопка в одну строку через Flexbox) */
+.subscribe-card {
+  background: var(--surface);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.subscribe-card p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: var(--bg);
+  color: var(--ink);
+  transition: border-color 0.2s;
+}
+
+.subscribe-form input:focus {
+  border-color: var(--ink);
+}
+
+.subscribe-form .btn {
+  padding: 12px 20px;
+}
+
+/* Скрытый класс для accessibility (label для формы) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+/* Общий подвал */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.footer-inner a:hover {
+  color: var(--ink);
+}
+
+/* ==========================================
+   АДАПТИВНОСТЬ (Медиазапрос для мобильных)
+   ========================================== */
+
+@media (max-width: 768px) {
+  .topbar-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .grid-4 {
+    grid-template-columns: 1fr; /* Перестраиваем в 1 колонку */
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr; /* Перестраиваем в 1 колонку */
+  }
+
+  .subscribe-form {
+    flex-direction: column; /* Поле и кнопка друг под другом на мобильных */
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

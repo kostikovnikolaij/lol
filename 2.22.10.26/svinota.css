@@ -92,3 +92,31 @@ body {
   padding: 14px 16px;
   border: 1px solid black;
 }
+
+.hero1 button {
+  background-color: rgb(247, 116, 137);
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip_text {
+  height: 30px;
+  width: 100px;
+  position: absolute;
+  border: 1px solid black;
+  padding: 10px;
+  background-color: white;
+  top: -75px;
+  display: none;
+}
+
+.tooltip:hover .tooltip_text {
+  display: block;
+}
+
+.tooltip_icon {
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,103 @@
+/* === Контейнер слайдера === */
+.slider {
+    position: relative;
+    width: 500px;
+    max-width: 100%;
+    overflow: hidden;
+    /* скрываем слайды за пределами */
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* === Дорожка со слайдами === */
+.slider-track {
+    display: flex;
+    transition: transform 0.4s ease;
+    /* плавный сдвиг */
+}
+
+/* === Один слайд === */
+.slide {
+    min-width: 100%;
+    /* каждый слайд во всю ширину контейнера */
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    color: #fff;
+    user-select: none;
+}
+
+/* Разные цвета для наглядности */
+.slide:nth-child(1) {
+    background: #3b82f6;
+}
+
+.slide:nth-child(2) {
+    background: #10b981;
+}
+
+.slide:nth-child(3) {
+    background: #f59e0b;
+}
+
+.slide:nth-child(4) {
+    background: #ef4444;
+}
+
+/* === Кнопки Назад / Вперёд === */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-btn:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.slider-btn.prev {
+    left: 12px;
+}
+
+.slider-btn.next {
+    right: 12px;
+}
+
+/* === Точки-индикаторы === */
+.slider-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+}
+
+.slider-dot.active {
+    background: #fff;
+}

@@ -1,0 +1,29 @@
+body {
+  background-color: pink;
+}
+
+.cont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.item {
+  width: 18%;
+  padding: 20px;
+  background-color: rgb(235, 116, 116);
+  border-radius: 5px;
+  text-align: center;
+}
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+@media (max-width: 576px) {
+  body {
+    background-color: lightblue;
+  }
+  .item {
+    width: 40%;
+  }
+}

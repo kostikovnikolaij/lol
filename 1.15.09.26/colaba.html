@@ -137,6 +137,28 @@
       </section>
     </main>
 
+    <!-- Центрированная кнопка внизу -->
+    <div class="center-btn-container">
+      <button class="open-btn" id="openBtn">Оставить заявку</button>
+    </div>
+
+    <!-- Сам компонент окна -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <button class="modal-close" id="closeX" aria-label="Закрыть">
+          &times;
+        </button>
+        <h2>Оставьте заявку</h2>
+        <p>Заполните форму, и мы с вами свяжемся</p>
+        <input type="text" placeholder="Имя" />
+        <input type="text" placeholder="Телефон" />
+        <button class="btn btn-primary btn-large" id="closeBtn">
+          Отправить заявку
+        </button>
+      </div>
+    </div>
+
+    <script src="modal/modal-script.js"></script>
     <script>
       // 1. ЛОГИКА МИНИ-КАРУСЕЛИ (col1.png <-> col2.png)
       const slides = [
